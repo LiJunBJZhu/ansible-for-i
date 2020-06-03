@@ -1,11 +1,14 @@
-#ADDAUTLE AUTL(ZHULJ_AL) USER(QCIUSER) AUT(*AUTLMGT *USE)
-#CHGAUTLE AUTL(ZHULJ_AL) USER(QCIUSER) AUT(*OBJREF)
-
+# test code for the ibmi_object_authority module
+# (c) 2020, zhuljbj <zhuljbj@cn.ibm.com>
+#
+# GNU General Public License v3 or later (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt )
+#)
 
 - block:
     - set_fact:
         new_user: [ANSIUSER1, ANSIUSER2]
         au_list: [au_list1, au_list2]
+        os_version: "{{ansible_distribution_version}}{{ansible_distribution_release}}"
 
     - name: create two user profiles
       ibmi_cl_command:

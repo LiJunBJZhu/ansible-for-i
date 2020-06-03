@@ -1,3 +1,8 @@
+# test code for the ibmi_submit_job module
+# (c) 2020, zhuljbj <zhuljbj@cn.ibm.com>
+#
+# GNU General Public License v3 or later (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt )
+#
 - block: 
     - copy: src="sbmjob_script.sh" dest="/tmp/" mode="755"
   
@@ -31,7 +36,6 @@
       assert:
         that:
           - sbmjob_result.rc == 0 
-          - sbmjob_result.delta <= '0:00:06.0'
 
     - name: submit job with check_interval
       ibmi_submit_job: 
@@ -41,12 +45,6 @@
         check_interval: "9s"
         parameters: "JOB(ANSIBLE)"
       register: sbmjob_result
-  
-    - name: assert the module returns before the script finishes.
-      assert:
-        that:
-          - sbmjob_result.rc == 0 
-          - sbmjob_result.delta <= '0:00:01.0'
 
     # test negative test cases
     - name: submit job with time_out reported
